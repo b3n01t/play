@@ -1,0 +1,131 @@
+HI
+<style>
+    #b {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, transparent, #200) #345;
+    }
+</style>
+<canvas id="b"></canvas>
+<script>
+    var frame = time = timeNextFrame = 0;
+    var c = b.getContext('2d');
+
+
+    var lines = [];
+    var H = b.height = 2048;
+    var W = b.width = 0 | H * innerWidth / innerHeight;
+    var MAX = 100;
+    c.translate(W / 2, H / 2);
+
+
+
+
+    function createLine() {
+        // var line = {x:0,y:0,a:Math.random()*60,ai:0,p:[],w:8,l: 0|(Math.random() * 20 + 10),lw:Math.random() * 10 + 5}
+        var line = {
+            x: Math.random() * W / 5,
+            y: Math.random() * H / 5,
+            a: Math.random() * 60,
+            ai: 0,
+            p: [],
+            w: 8,
+            l: 20,
+            lw: Math.random() * 10 + 5
+        }
+        line.w = 0 | (Math.random() * 20 + 5);
+        // line.l *= 2;
+        return line;
+    }
+
+    for (var i = 0; i < 99; i++) {
+        lines.push(createLine());
+    }
+
+    onload = function frameUpdate() {
+        requestAnimationFrame(frameUpdate);
+        let currentTime = performance.now() / 1000;
+        while (time < currentTime) {
+            while (time < timeNextFrame) {
+                time += 1 / 60;
+            }
+            frame++;
+            timeNextFrame += 1 / 60;
+
+            lines.forEach(v => {
+                if (!v.die) {
+                    dx = Math.cos(v.a) * v.w / 2;
+                    dy = Math.sin(v.a) * v.w / 2;
+                    v.x += dx;
+                    v.y += dy;
+                    v.a += v.ai / 10;
+
+                    if (v.x > W / 2 || v.x < -W / 2) {
+                        v.a = v.a + 3;
+                        dx = Math.cos(v.a) * v.w / 2;
+                        v.x += dx * 2;
+                        lines.push(createLine());
+                    }
+                    if (v.y > H / 2 || v.y < -H / 2) {
+                        v.a = -v.a
+                        dy = Math.sin(v.a) * v.w / 2;
+                        v.y += dy * 2;
+                        lines.unshift(createLine());
+                    }
+
+
+                    if (frame % 30 == 0) {
+                        v.ai = Math.random() - .5;
+                        pw = 0 | (Math.random() * 10);
+                    }
+                    v.p.push({
+                        x: v.x,
+                        y: v.y,
+                        dx: dx,
+                        dy: dy
+                    });
+                    v.p.splice(0, v.p.length - v.l);
+                } else {
+                    v.l -= 1;
+                    v.p.splice(0, v.p.length - v.l);
+                }
+
+            });
+
+            if (lines.length > MAX) {
+
+                for (var i = lines.length - 1; i >= MAX; i--) {
+                    // var l = lines[i];
+                    // l.l -= 1;
+                    // l.p.splice(0, l.p.length - l.l);
+                    lines[i].die = true;
+                }
+
+            }
+            lines = lines.filter(l => l.l > 0);
+            // lines = lines.splice(0,20)
+        }
+
+        // console.log(0|frame/60);
+
+
+        c.translate(-W / 2, -H / 2);
+        c.clearRect(0, 0, W, H);
+        c.translate(W / 2, H / 2);
+        c.lineCap = "round";
+        lines.forEach(v => {
+            c.shadowColor = c.strokeStyle = 'hsl(' + (v.a * 60 | 0) + ',100%,' + (60 + v.w | 0) + '%)';
+            c.shadowBlur = 12;
+            c.lineWidth = v.lw;
+            c.beginPath();
+            l = v.p.length - 1;
+            for (i = l; p = v.p[i]; i -= 1) {
+                c.lineTo(p.x, p.y);
+            }
+            c.stroke();
+        });
+    }
+</script>
