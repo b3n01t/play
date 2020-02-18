@@ -1,0 +1,22 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var one_dim_board_1 = require("./one-dim-board");
+exports.OneDimBoard = one_dim_board_1.OneDimBoard;
+//-- Board implemetations
+var blank_1 = require("./boards/blank");
+var walls_around_1 = require("./boards/walls-around");
+var walls_with_holes_1 = require("./boards/walls-with-holes");
+var walls_with_holes_2_1 = require("./boards/walls-with-holes-2");
+var walls_with_holes_3_1 = require("./boards/walls-with-holes-3");
+var wolf_1 = require("./boards/wolf");
+var wolf2_1 = require("./boards/wolf2");
+var tree_1 = require("./boards/tree");
+var registry_1 = require("./registry");
+registry_1.GameBoards.add('blank', blank_1.BlankBoard);
+registry_1.GameBoards.add('wall-around', walls_around_1.WallsAroundBoard);
+registry_1.GameBoards.add('wall-holes', walls_with_holes_1.WallsWithWalls);
+registry_1.GameBoards.add('wall-holes2', walls_with_holes_2_1.WallsWithWalls2);
+registry_1.GameBoards.add('wall-holes3', walls_with_holes_3_1.WallsWithWalls3);
+registry_1.GameBoards.add('wolf', wolf_1.Wolf);
+registry_1.GameBoards.add('wolf2', wolf2_1.Wolf2);
+registry_1.GameBoards.add('tree', tree_1.Tree);

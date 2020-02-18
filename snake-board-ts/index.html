@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- http://bucephalus.org/text/CanvasHandbook/CanvasHandbook.html -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Snake</title>
+    <script src="./vendor/require.js"></script>
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+    <nav id="header">
+        <div>
+            Snake
+        </div>
+        <div>
+            <a target="_blank" href="http://bucephalus.org/text/CanvasHandbook/CanvasHandbook.html">CanvasHandbook</a>
+        </div>
+    </nav>
+    <main class="main">
+        <section class="side-bar">
+            <div id="debug"></div>
+        </section>
+        <section class="main-panel">
+            <div id='game-status'>
+                <div>
+                    <span>Board:</span><span id='board-name'></div>
+                </div>
+            </div>
+            <div id='game'>
+                <canvas id="canvas-board"></canvas>
+                <canvas id="canvas-board-draw"></canvas>
+            </div>
+        </section>
+    </main>
+    <!--  -->
+    <script src="./dist/main.js"></script>
+    <script> require(['main'], function (main) { console.log('Bundle loaded') });</script>
+</body>
+
+</html>

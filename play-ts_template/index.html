@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- http://bucephalus.org/text/CanvasHandbook/CanvasHandbook.html -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Snake</title>
+    <script src="./vendor/require.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(30, 30, 30);
+            font-family: Menlo, Monaco, "Courier New", monospace;
+        }
+
+        a,
+        a:visited {
+            color: #569cd6;
+        }
+
+        #header {
+            color: #d4d4d4;
+            padding: 10px;
+            background: rgb(51, 51, 51);
+        }
+
+        .main {
+            position: relative;
+            display: flex;
+            height: -webkit-fill-available;
+        }
+
+        .side-bar {
+            color: #569cd6;
+            background: rgb(37, 37, 38);
+            word-break: break-all;
+            width: 275px;
+            /* white-space: pre-wrap; */
+            float: left;
+        }
+
+        .main-panel {
+            padding: 20px;
+            width: 100%;
+        }
+
+        #canvas {
+            display: block;
+            width: 750px;
+            height: 450px;
+            margin: 40px auto;
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="header">
+        <div>
+            Snake
+        </div>
+        <div>
+            <a target="_blank" href="http://bucephalus.org/text/CanvasHandbook/CanvasHandbook.html">CanvasHandbook</a>
+        </div>
+    </nav>
+    <main class="main">
+        <section class="side-bar">
+            <div id="debug"></div>
+        </section>
+        <section class="main-panel">
+            <canvas id="canvas"></canvas>
+        </section>
+    </main>
+    <!--  -->
+    <script src="./dist/main.js"></script>
+    <script> require(['main'], function (main) { console.log('Bundle loaded') });</script>
+</body>
+
+</html>

@@ -45,9 +45,9 @@ HI
         lines.push(createLine());
     }
 
-    onload = function frameUpdate() {
+    onload = function frameUpdate(time) {
         requestAnimationFrame(frameUpdate);
-        let currentTime = performance.now() / 1000;
+        let currentTime = time / 1000;
         while (time < currentTime) {
             while (time < timeNextFrame) {
                 time += 1 / 60;

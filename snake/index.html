@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- http://bucephalus.org/text/CanvasHandbook/CanvasHandbook.html -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Squares</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(30, 30, 30);
+            /* font-family: "SF Mono", Monaco, Menlo, Inconsolata, "Courier New", monospace; */
+            font-family: Menlo, Monaco, "Courier New", monospace;
+            /* #282829 */
+            /* rgb(30,30,30) */
+        }
+
+        #header {
+            color: #d4d4d4;
+            padding: 10px;
+        }
+
+        #debug {
+            position: fixed;
+            color: #569cd6;
+        }
+
+        #canvas {
+            display: block;
+            width: 750px;
+            margin: 0 auto;
+            /* background: radial-gradient(circle, transparent, #200) rgb(32, 39, 24); */
+            background: white;
+            /* background-color: rgb(30, 30, 30); */
+        }
+
+        #debug>pre {
+            word-break: break-all;
+            width: 275px;
+            /* word-break: break-all; */
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="header">
+        <nav> Snake </nav>
+    </section>
+    <section>
+        <div id="debug"></div>
+        <canvas id="canvas"></canvas>
+    </section>
+    <script src="./game.js" />
+    </script>
+</body>
+
+</html>

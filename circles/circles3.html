@@ -1,0 +1,146 @@
+HI
+<style>
+    #b {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, transparent, #200) #345;
+    }
+</style>
+<!-- <button onclick="run()">run</button> -->
+<canvas id="b"></canvas>
+<button onclick="run = !run" style="position:fixed;">run</button>
+<script>
+
+    function random(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    var frame = time = timeNextFrame = 0;
+    var c = b.getContext('2d');
+
+
+    var cs = [];
+    var H = b.height = 2048;
+    var W = b.width = 0 | H * innerWidth / innerHeight;
+    var MAX = 200;
+    c.translate(W / 2, H / 2);
+
+
+    // circle eq: 
+    // (x-a)^2 + (y-b)^2 = r^2
+    // (y-b)^2 = r^2 - (x-a)^2 
+    // y-b = sqrt(r^2 - (x-a)^2)
+    // y = sqrt(r^2 - (x-a)^2) + b
+
+    function createCircle() {
+        var c = {
+            // cx: random(3, 100),
+            // cy: random(3, 100),
+            cx: 0,
+            cy: 0,
+            r: random(150, 1000),
+            // r:1000,
+            p: [],
+            o: random(1, 2*Math.PI),
+            // o:0,
+            j: 0 | random(120, 240),
+            s: random(1, 3),
+            // s:1,
+            i: Math.random() >= .5 ? -1 : 1,
+            i2: Math.random() >= .5 ? -1 : 1,
+            l: 2//random(3, 10)
+        };
+        return c;
+    }
+    lll = { x: 0, y: 0, p: [{ x: -150, y: 0 }] };
+    x = -150
+    while (x < 150) {
+        lll.p.push({ x: x, y: 0 })
+        x += 1;
+    };
+
+    for (var i = 0; i < MAX; i++) {
+        cs.push(createCircle());
+    }
+    li = 0 | (lll.p.length - 1) / 2;
+
+
+    ff = 1.3;
+
+    var run = false;
+    onload = function frameUpdate() {
+        requestAnimationFrame(frameUpdate);
+        if (run) {
+            let currentTime = performance.now() / 1000;
+            while (time < currentTime) {
+                while (time < timeNextFrame) {
+                    time += 1 / 60;
+                }
+                frame++;
+                timeNextFrame += 1 / 60;
+
+                cs.forEach((ci, idx) => {
+        
+                    //-- trajectory radius
+                    // minRadius = random(1, 300);
+                    // minRadius = 100 * Math.abs(Math.sin(time * 2 * ff)) + 50;
+                    // var min = Math.sin(time * .5) * 350 + 50 + Math.cos(time + ci.o);
+                    // ci.r = Math.abs(min + (Math.log(idx) * 50) * Math.sin(time / ci.o)) + minRadius; // random(min,max);
+                    //--
+
+                    //-- trajectory center
+                    // ci.cx = ci.cx + Math.sin(time * random(-Math.PI, Math.PI));
+                    // ci.cy = ci.cy + Math.cos(time * random(-Math.PI, Math.PI));
+                    ci.cx =  Math.sin(time  * Math.PI) * 300;
+                    ci.cy =  Math.cos(time  * Math.PI) * 300;
+                    //--
+
+                    //-- 
+                    t = time * ci.o / 3 * ci.s / 3 //  * //Math.//(Math.log(Math.abs(ci.r))/Math.abs(ci.r) +1) //+  ci.s/3 + ci.o// * (Math.cos(time /1  +ci.o ) +Math.sin(time/1 +ci.o) ) 
+                    // t = time;
+                    y = ci.r * Math.sin(t) * ci.i + ci.cy;
+                    x = ci.r * Math.cos(t) * ci.i * ci.i2 + ci.cx;
+                    // x = ci.r * Math.cos(t) * ci.i + ci.cx;
+                    //--
+
+                    ci.p.push({ x: x, y: y })
+                    ci.p.splice(0, ci.p.length - ci.l);
+                });
+
+            }
+            c.translate(-W / 2, -H / 2);
+            c.clearRect(0, 0, W, H);
+            c.translate(W / 2, H / 2);
+            c.lineCap = "round";
+
+            cs.forEach(v => {
+                hsl = 'hsl(' + (v.o * 60 | 0) + ',100%,' + ((v.j / 240) * 100 | 0) + '%)';
+                c.shadowColor = c.strokeStyle = hsl
+                c.lineWidth = 10;
+                c.beginPath();
+                l = v.p.length - 1;
+                for (i = l; p = v.p[i]; i -= 1) {
+                    c.lineTo(p.x, p.y);
+                }
+                c.stroke();
+
+                //--
+                c.beginPath();
+                c.arc(v.cx, v.cy, 5, 0, 2 * Math.PI, false);
+                c.fillStyle = 'green';
+                c.fill();
+                c.lineWidth = 5;
+                c.strokeStyle = '#003300';
+                c.stroke();
+                //--
+
+            });
+
+
+        }
+    }
+
+
+</script>
