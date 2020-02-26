@@ -46,11 +46,12 @@ export class SnakePlayer {
             case 'ArrowDown': this.state.direction = SOUTH; break;
             case '=': this.state.speed += 1; break;
             case '-': this.state.speed -= 1; break;
-            default: break; 
+            default: break;
         }
     }
 
     public draw(time?: number) {
+        this.ctx.save();
         const t = time ? time : 0;
         const c = this.ctx;
         c.shadowBlur = 2;
@@ -78,7 +79,6 @@ export class SnakePlayer {
                     this.board.cellPx - 2 - Math.sin(3.314159 / 3 * t)
                 );
             } else {
-                // c.shadowColor = ;
                 c.shadowBlur = 0;
                 c.fillRect(
                     tailPart.x * this.board.cellPx + 1,
@@ -88,7 +88,7 @@ export class SnakePlayer {
                 );
             }
         });
-
+        this.ctx.restore();
     }
 
     public move(time: number, update: (cell: CellState, x: number, y: number) => void) {

@@ -36,3 +36,15 @@ export const getContext2d = (canvasId: string, width: number, height: number): [
 export const random = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+export const waitForChar = async (char: string) => {
+    return new Promise((resolve) => {
+        const go = (e: KeyboardEvent) => {
+            if (e.key === char) {
+                document.removeEventListener('keypress', go);
+                resolve();
+            }
+        }
+        document.addEventListener('keypress', go);
+    });
+}
